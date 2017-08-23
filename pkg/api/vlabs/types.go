@@ -190,17 +190,18 @@ type KubernetesConfig struct {
 
 // MasterProfile represents the definition of the master cluster
 type MasterProfile struct {
-	Count                    int         `json:"count" validate:"required,eq=1|eq=3|eq=5"`
-	DNSPrefix                string      `json:"dnsPrefix" validate:"required"`
-	VMSize                   string      `json:"vmSize" validate:"required"`
-	OSDiskSizeGB             int         `json:"osDiskSizeGB,omitempty" validate:"min=0,max=1023"`
-	VnetSubnetID             string      `json:"vnetSubnetID,omitempty"`
-	FirstConsecutiveStaticIP string      `json:"firstConsecutiveStaticIP,omitempty"`
-	IPAddressCount           int         `json:"ipAddressCount,omitempty" validate:"min=0,max=256"`
-	StorageProfile           string      `json:"storageProfile,omitempty" validate:"eq=StorageAccount|eq=ManagedDisks|len=0"`
-	HTTPSourceAddressPrefix  string      `json:"HTTPSourceAddressPrefix,omitempty"`
-	OAuthEnabled             bool        `json:"oauthEnabled"`
-	Extensions               []Extension `json:"extensions"`
+	Count                    int        `json:"count" validate:"required,eq=1|eq=3|eq=5"`
+	DNSPrefix                string     `json:"dnsPrefix" validate:"required"`
+	VMSize                   string     `json:"vmSize" validate:"required"`
+	OSDiskSizeGB             int        `json:"osDiskSizeGB,omitempty" validate:"min=0,max=1023"`
+	VnetSubnetID             string     `json:"vnetSubnetID,omitempty"`
+	FirstConsecutiveStaticIP string     `json:"firstConsecutiveStaticIP,omitempty"`
+	IPAddressCount           int        `json:"ipAddressCount,omitempty" validate:"min=0,max=256"`
+	StorageProfile           string     `json:"storageProfile,omitempty" validate:"eq=StorageAccount|eq=ManagedDisks|len=0"`
+	HTTPSourceAddressPrefix  string     `json:"HTTPSourceAddressPrefix,omitempty"`
+	OAuthEnabled             bool       `json:"oauthEnabled"`
+	PreprovisionExtensions   *Extension `json:"preprovisionExtension"`
+	PostprovisionExtensions  *Extension `json:"postprovisionExtension"`
 
 	// subnet is internal
 	subnet string
@@ -247,9 +248,10 @@ type AgentPoolProfile struct {
 	// subnet is internal
 	subnet string
 
-	FQDN             string            `json:"fqdn"`
-	CustomNodeLabels map[string]string `json:"customNodeLabels,omitempty"`
-	Extensions       []Extension       `json:"extensions"`
+	FQDN                    string            `json:"fqdn"`
+	CustomNodeLabels        map[string]string `json:"customNodeLabels,omitempty"`
+	PreprovisionExtensions  *Extension        `json:"preprovisionExtension"`
+	PostprovisionExtensions *Extension        `json:"postprovisionExtension"`
 }
 
 // KeyVaultSecrets specifies certificates to install on the pool

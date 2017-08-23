@@ -159,18 +159,19 @@ type KubernetesConfig struct {
 
 // MasterProfile represents the definition of the master cluster
 type MasterProfile struct {
-	Count                    int         `json:"count"`
-	DNSPrefix                string      `json:"dnsPrefix"`
-	VMSize                   string      `json:"vmSize"`
-	OSDiskSizeGB             int         `json:"osDiskSizeGB,omitempty"`
-	VnetSubnetID             string      `json:"vnetSubnetID,omitempty"`
-	FirstConsecutiveStaticIP string      `json:"firstConsecutiveStaticIP,omitempty"`
-	Subnet                   string      `json:"subnet"`
-	IPAddressCount           int         `json:"ipAddressCount,omitempty"`
-	StorageProfile           string      `json:"storageProfile,omitempty"`
-	HTTPSourceAddressPrefix  string      `json:"HTTPSourceAddressPrefix,omitempty"`
-	OAuthEnabled             bool        `json:"oauthEnabled"`
-	Extensions               []Extension `json:"extensions"`
+	Count                    int        `json:"count"`
+	DNSPrefix                string     `json:"dnsPrefix"`
+	VMSize                   string     `json:"vmSize"`
+	OSDiskSizeGB             int        `json:"osDiskSizeGB,omitempty"`
+	VnetSubnetID             string     `json:"vnetSubnetID,omitempty"`
+	FirstConsecutiveStaticIP string     `json:"firstConsecutiveStaticIP,omitempty"`
+	Subnet                   string     `json:"subnet"`
+	IPAddressCount           int        `json:"ipAddressCount,omitempty"`
+	StorageProfile           string     `json:"storageProfile,omitempty"`
+	HTTPSourceAddressPrefix  string     `json:"HTTPSourceAddressPrefix,omitempty"`
+	OAuthEnabled             bool       `json:"oauthEnabled"`
+	PreprovisionExtensions   *Extension `json:"preprovisionExtension"`
+	PostprovisionExtensions  *Extension `json:"postprovisionExtension"`
 
 	// Master LB public endpoint/FQDN with port
 	// The format will be FQDN:2376
@@ -195,23 +196,23 @@ type Extension struct {
 
 // AgentPoolProfile represents an agent pool definition
 type AgentPoolProfile struct {
-	Name                string `json:"name"`
-	Count               int    `json:"count"`
-	VMSize              string `json:"vmSize"`
-	OSDiskSizeGB        int    `json:"osDiskSizeGB,omitempty"`
-	DNSPrefix           string `json:"dnsPrefix,omitempty"`
-	OSType              OSType `json:"osType,omitempty"`
-	Ports               []int  `json:"ports,omitempty"`
-	AvailabilityProfile string `json:"availabilityProfile"`
-	StorageProfile      string `json:"storageProfile,omitempty"`
-	DiskSizesGB         []int  `json:"diskSizesGB,omitempty"`
-	VnetSubnetID        string `json:"vnetSubnetID,omitempty"`
-	Subnet              string `json:"subnet"`
-	IPAddressCount      int    `json:"ipAddressCount,omitempty"`
-
-	FQDN             string            `json:"fqdn,omitempty"`
-	CustomNodeLabels map[string]string `json:"customNodeLabels,omitempty"`
-	Extensions       []Extension       `json:"extensions"`
+	Name                    string            `json:"name"`
+	Count                   int               `json:"count"`
+	VMSize                  string            `json:"vmSize"`
+	OSDiskSizeGB            int               `json:"osDiskSizeGB,omitempty"`
+	DNSPrefix               string            `json:"dnsPrefix,omitempty"`
+	OSType                  OSType            `json:"osType,omitempty"`
+	Ports                   []int             `json:"ports,omitempty"`
+	AvailabilityProfile     string            `json:"availabilityProfile"`
+	StorageProfile          string            `json:"storageProfile,omitempty"`
+	DiskSizesGB             []int             `json:"diskSizesGB,omitempty"`
+	VnetSubnetID            string            `json:"vnetSubnetID,omitempty"`
+	Subnet                  string            `json:"subnet"`
+	IPAddressCount          int               `json:"ipAddressCount,omitempty"`
+	FQDN                    string            `json:"fqdn,omitempty"`
+	CustomNodeLabels        map[string]string `json:"customNodeLabels,omitempty"`
+	PreprovisionExtensions  *Extension        `json:"preprovisionExtension"`
+	PostprovisionExtensions *Extension        `json:"postprovisionExtension"`
 }
 
 // DiagnosticsProfile setting to enable/disable capturing
